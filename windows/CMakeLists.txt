@@ -1,10 +1,10 @@
 # Project-level configuration.
 cmake_minimum_required(VERSION 3.14)
-project(apk_mj_mahasiswa LANGUAGES CXX)
+project(apk_mj_mahasiswa_new LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "apk_mj_mahasiswa")
+set(BINARY_NAME "apk_mj_mahasiswa_new")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.

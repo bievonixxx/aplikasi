@@ -1,9 +1,0 @@
-658541933794-nvga0r7il8rn1kfq9fh9v2cird0k255o.apps.googleusercontent.com       - api google
-
-step install firebase = -        npm install -g firebase-tools
-			-         dart pub global activate flutterfire_cli
-			-         firebase login
-			-         flutterfire configure
-
-flutter pub add firebase_storage file_picker
-
