@@ -1,0 +1,61 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.32.1'
+        channel: 'stable'
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Build APK
+      run: flutter build apk --release
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-apk
+        path: build/app/outputs/flutter-apk/app-release.apk
+
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/app/outputs/flutter-apk/app-release.apk
+        tag_name: v${{ github.run_number }}
+        name: Release v${{ github.run_number }}
+        body: |
+          ## Manajemen Tugas Mahasiswa APK
+          
+          ### What's New
+          - Auto-built APK from GitHub Actions
+          - Version: ${{ github.run_number }}
+          
+          ### Installation
+          1. Download APK file
+          2. Enable "Install from Unknown Sources" in Android settings
+          3. Install APK
+          
+          ### Features
+          - Login/Register Mahasiswa & Dosen
+          - Manajemen Tugas dengan Google Drive Integration
+          - Notifikasi Deadline Tugas
+          - Modern UI/UX Design
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
